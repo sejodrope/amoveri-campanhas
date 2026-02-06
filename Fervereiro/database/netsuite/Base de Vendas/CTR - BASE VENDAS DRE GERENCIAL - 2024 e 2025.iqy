@@ -1,0 +1,9 @@
+WEB
+1
+https://6245503.app.netsuite.com/app/reporting/webquery.nl?compid=6245503&entity=17466&email=jose.vieira@amoverifarma.com&role=1310&cr=770&hash=AAEJ7tMQcN2fwZY9Ys7RgKlG8qi7NXOT8woIrKmDD4bcobp5lQY
+
+Selection=EntirePage
+Formatting=All
+PreFormattedTextToColumns=True
+ConsecutiveDelimitersAsOne=True
+SingleBlockTextImport=False
