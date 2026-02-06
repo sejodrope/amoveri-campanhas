@@ -41,9 +41,14 @@ def carregar_clientes():
     clientes = []
 
     with open(FILE_CLIENTES, 'r', encoding='latin-1') as f:
+        # Skip first 6 rows (header information)
+        for _ in range(6):
+            next(f)
+
         reader = csv.DictReader(f)
 
         for row in reader:
+            # Note: CSV headers have trailing spaces
             cliente = row.get('Cliente ', '').strip()
 
             if not cliente or cliente == '- Sem Cliente/projeto -':

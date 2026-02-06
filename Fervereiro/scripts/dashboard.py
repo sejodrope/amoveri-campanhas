@@ -45,12 +45,13 @@ def limpar_valor(valor_str):
 def carregar_clientes():
     """Carrega dados de clientes"""
     file_path = DATABASE_DIR / "Resumo de vendas por cliente - 07.25-02.26.csv"
-    df = pd.read_csv(file_path, encoding='latin-1')
+    # Skip first 6 rows (header information), row 7 has column names
+    df = pd.read_csv(file_path, encoding='latin-1', skiprows=6)
     df.columns = df.columns.str.strip()
-    df['Vendas_Float'] = df['Vendas '].apply(limpar_valor)
-    df = df[df['Cliente '].notna()].copy()
-    df = df[df['Cliente '] != '- Sem Cliente/projeto -'].copy()
-    df['UF'] = df['UF '].fillna('SEM UF')
+    df['Vendas_Float'] = df['Vendas'].apply(limpar_valor)
+    df = df[df['Cliente'].notna()].copy()
+    df = df[df['Cliente'] != '- Sem Cliente/projeto -'].copy()
+    df['UF'] = df['UF'].fillna('SEM UF')
     return df
 
 
@@ -58,9 +59,10 @@ def carregar_clientes():
 def carregar_parceiros():
     """Carrega dados de parceiros"""
     file_path = DATABASE_DIR / "Resumo de vendas por parceiro - 10.25-02.26.csv"
-    df = pd.read_csv(file_path, encoding='latin-1')
+    # Skip first 6 rows (header information), row 7 has column names
+    df = pd.read_csv(file_path, encoding='latin-1', skiprows=6)
     df.columns = df.columns.str.strip()
-    df['Vendas_Float'] = df['Total da transação '].apply(limpar_valor)
+    df['Vendas_Float'] = df['Total da transação'].apply(limpar_valor)
     return df
 
 
@@ -89,7 +91,7 @@ with st.sidebar:
     uf_selecionada = st.selectbox("Selecione UF:", ufs_disponiveis)
 
     st.markdown("### 👤 Filtro por Vendedor")
-    vendedores = df_clientes['Representante de vendas '].dropna().unique().tolist()
+    vendedores = df_clientes['Representante de vendas'].dropna().unique().tolist()
     vendedor_selecionado = st.selectbox("Selecione Vendedor:", ['Todos'] + sorted(vendedores))
 
     st.markdown("---")
@@ -104,7 +106,7 @@ df_filtrado = df_clientes.copy()
 if uf_selecionada != 'Todas':
     df_filtrado = df_filtrado[df_filtrado['UF'] == uf_selecionada]
 if vendedor_selecionado != 'Todos':
-    df_filtrado = df_filtrado[df_filtrado['Representante de vendas '] == vendedor_selecionado]
+    df_filtrado = df_filtrado[df_filtrado['Representante de vendas'] == vendedor_selecionado]
 
 
 # ========================
@@ -146,7 +148,7 @@ if visao == "Visão Geral":
         st.metric(
             "⭐ Maior Cliente",
             f"R$ {maior_cliente/1e6:.2f}M",
-            help="Cliente com maior faturamento"
+            help="Clientecom maior faturamento"
         )
 
     st.markdown("---")
@@ -160,10 +162,10 @@ if visao == "Visão Geral":
         fig = px.bar(
             top10,
             x='Vendas_Float',
-            y='Cliente ',
+            y='Cliente',
             orientation='h',
             title="Faturamento dos Top 10 Clientes",
-            labels={'Vendas_Float': 'Faturamento (R$)', 'Cliente ': 'Cliente'},
+            labels={'Vendas_Float': 'Faturamento (R$)', 'Cliente': 'Cliente'},
             color='Vendas_Float',
             color_continuous_scale='Blues'
         )
@@ -264,7 +266,7 @@ elif visao == "Top Clientes":
     top_display['% Acumulado'] = top_display['% Acumulado'].apply(lambda x: f"{x:.2f}%")
 
     st.dataframe(
-        top_display[['Cliente ', 'Vendas', '% do Total', '% Acumulado', 'Representante de vendas ', 'UF']],
+        top_display[['Cliente', 'Vendas', '% do Total', '% Acumulado', 'Representante de vendas', 'UF']],
         use_container_width=True,
         height=600
     )
@@ -440,10 +442,10 @@ elif visao == "Parceiros":
         fig = px.bar(
             top_parceiros,
             x='Vendas_Float',
-            y='Parceiro ',
+            y='Parceiro',
             orientation='h',
             title="Faturamento por Parceiro",
-            labels={'Vendas_Float': 'Faturamento (R$)', 'Parceiro ': 'Parceiro'},
+            labels={'Vendas_Float': 'Faturamento (R$)', 'Parceiro': 'Parceiro'},
             color='Vendas_Float',
             color_continuous_scale='Purples'
         )
