@@ -71,7 +71,8 @@ st.markdown("---")
 
 # Sidebar
 with st.sidebar:
-    st.image("https://via.placeholder.com/200x80/0066cc/ffffff?text=Pontual+Farma", use_container_width=True)
+    st.markdown("## 📊 Pontual Farmacêutica")
+    st.markdown("---")
     st.markdown("## 🎛️ Filtros")
 
     # Carregar dados

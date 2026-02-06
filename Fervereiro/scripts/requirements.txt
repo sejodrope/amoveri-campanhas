@@ -2,13 +2,13 @@
 # Pontual Farmacêutica - Sistema de Gestão Comercial
 
 # Data Analysis
-pandas==2.1.4
-numpy==1.26.3
-openpyxl==3.1.2
+pandas>=1.5.0
+numpy>=1.23.0
+openpyxl>=3.0.0
 
 # Visualization
-plotly==5.18.0
-streamlit==1.29.0
+plotly>=5.0.0
+streamlit>=1.20.0
 
 # Utilities
-python-dateutil==2.8.2
+python-dateutil>=2.8.0
