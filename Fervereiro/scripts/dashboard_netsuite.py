@@ -289,6 +289,7 @@ def carregar_dre_netsuite():
     df['GRUPO DO CLIENTE'] = df['GRUPO DO CLIENTE'].fillna('SEM GRUPO')
     df['Parceiro: Representante de vendas'] = df['Parceiro: Representante de vendas'].fillna('SEM PARCEIRO')
     df['Canal de Venda utilizado'] = df['Canal de Venda utilizado'].fillna('SEM CANAL')
+    df['PEDIDO DE CONTRATO'] = df['PEDIDO DE CONTRATO'].fillna('Não')
 
     # Renomear colunas para facilitar
     df = df.rename(columns={
@@ -467,6 +468,41 @@ if visao == "Visão Geral":
             "📈 Margem",
             f"{margem_pct:.2f}%",
             help="Margem líquida"
+        )
+
+    # Linha adicional com métricas de contratos
+    col7, col8, col9 = st.columns(3)
+
+    # Calcular métricas de contratos
+    transacoes_com_contrato = df_filtrado[df_filtrado['PEDIDO DE CONTRATO'] == 'Sim']
+    num_contratos = len(transacoes_com_contrato)
+    pct_contratos = (num_contratos / num_transacoes * 100) if num_transacoes > 0 else 0
+    fat_contratos = transacoes_com_contrato['Fat_Liquido_Float'].sum()
+    pct_fat_contratos = (fat_contratos / total_fat_liquido * 100) if total_fat_liquido > 0 else 0
+
+    with col7:
+        st.metric(
+            "📋 Transações com Contrato",
+            f"{num_contratos:,}",
+            f"{pct_contratos:.1f}% do total",
+            help="Transações vinculadas a contratos"
+        )
+
+    with col8:
+        st.metric(
+            "💼 Faturamento via Contratos",
+            f"R$ {fat_contratos/1e6:.2f}M",
+            f"{pct_fat_contratos:.1f}% do total",
+            help="Faturamento de transações com contrato"
+        )
+
+    with col9:
+        # Clientes únicos em contratos
+        clientes_contrato = transacoes_com_contrato['Cliente'].nunique() if num_contratos > 0 else 0
+        st.metric(
+            "👥 Clientes com Contrato",
+            f"{clientes_contrato}",
+            help="Clientes únicos com contrato ativo"
         )
 
     st.markdown("---")
