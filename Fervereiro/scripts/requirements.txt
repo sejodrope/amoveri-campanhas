@@ -1,0 +1,14 @@
+# Dependências para Scripts de Análise e Dashboard
+# Pontual Farmacêutica - Sistema de Gestão Comercial
+
+# Data Analysis
+pandas==2.1.4
+numpy==1.26.3
+openpyxl==3.1.2
+
+# Visualization
+plotly==5.18.0
+streamlit==1.29.0
+
+# Utilities
+python-dateutil==2.8.2

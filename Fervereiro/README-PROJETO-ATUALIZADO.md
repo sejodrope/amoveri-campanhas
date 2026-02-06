@@ -44,7 +44,7 @@ Fervereiro/
 ├── 📄 README.md (Original - Índice geral)
 ├── 📄 README-PROJETO-ATUALIZADO.md (Este arquivo)
 │
-├── 📊 ANÁLISES DETALHADAS (NOVO)
+├── 📊 ANÁLISES DETALHADAS
 │   ├── 01-analise-detalhada-vendas-mensais.md
 │   │   └── Performance Jul/25 - Fev/26, evolução por vendedor
 │   │
@@ -57,8 +57,14 @@ Fervereiro/
 │   ├── 04-cenarios-discussao-nathalia.md
 │   │   └── 3 cenários estratégicos com projeções e investimentos
 │   │
-│   └── 05-sistema-bonus-incentivos.md
-│       └── Sistema completo de remuneração variável
+│   ├── 05-sistema-bonus-incentivos.md
+│   │   └── Sistema completo de remuneração variável
+│   │
+│   ├── 06-analise-clientes-detalhada.md (GERADO AUTOMATICAMENTE)
+│   │   └── Top clientes, concentração, segmentação, UF
+│   │
+│   └── 07-analise-dre-financeira.md ⭐ NOVO
+│       └── Margem, desconto, produtos, canais, categoria cliente
 │
 ├── 📊 DOCUMENTOS DE METAS (Original)
 │   ├── RESUMO-EXECUTIVO-METAS-FEV2026.md
@@ -71,16 +77,122 @@ Fervereiro/
 ├── 🗄️ DATABASE (Fontes de Dados)
 │   ├── campanhas/
 │   │   ├── Resumo de vendas por representante (Jul-Fev).csv
-│   │   └── Resumo de vendas por parceiro (Out-Fev).csv
+│   │   ├── Resumo de vendas por parceiro (Out-Fev).csv
+│   │   ├── Resumo de vendas por cliente (Jul-Fev).csv ⭐ NOVO
+│   │   └── CTR- BASE VENDAS DRE GERENCIAL (Jul-Fev).csv ⭐ NOVO
 │   │
 │   ├── bionexo/ (Relatórios JSON 2024-2025)
 │   ├── netsuite/ (Base DRE gerencial)
 │   ├── gtplan/ (Histórico de cotações)
 │   └── tabela-preço/
 │
+├── 🐍 SCRIPTS PYTHON ⭐ NOVO
+│   ├── analise_clientes.py (com pandas - análise completa)
+│   ├── analise_simples.py (sem dependências - versão leve)
+│   ├── dashboard.py (Streamlit - dashboard interativo)
+│   ├── requirements.txt (dependências)
+│   └── README.md (guia de uso)
+│
 └── 📋 DOCS COMPLEMENTARES
     └── plano-inicial.md (Briefing original)
 ```
+
+---
+
+## 🚀 NOVIDADES DA VERSÃO 2.0
+
+**Data:** 06/02/2026 | **Status:** ✅ Completo
+
+---
+
+## 🎉 NOVIDADES DA VERSÃO 2.1 ⭐ NOVO (Hoje)
+
+### 1. Novos Dados Integrados
+
+**📁 Arquivo de Clientes**
+- CSV completo com centenas de clientes
+- Vendas por cliente × vendedor × UF
+- CNPJ, parceiro, representante de vendas
+
+**📁 Arquivo DRE Gerencial** (GAME CHANGER)
+- Dados transacionais detalhados (milhares de linhas)
+- Faturamento Bruto vs Líquido vs Margem
+- Desconto por transação
+- ICMS desonerado
+- Produto (nome, código, fabricante, quantidade)
+- Categoria de cliente (Hospital, Operadora, Clínica, etc.)
+- Canal de venda (Bionexo, Portal, WhatsApp, etc.)
+- Tipo de operação fiscal (CFOP)
+- Setor de atividade
+- Grupo de clientes
+
+---
+
+### 2. Scripts Python Automatizados 🐍
+
+**analise_clientes.py** (Completo - requer pandas)
+- Análise de top 50 clientes
+- Concentração de risco
+- Análise geográfica por UF
+- Performance vendedor × cliente
+- Segmentação por faixa de faturamento
+- Identificação de clientes-chave
+- Exporta Markdown + Excel
+
+**analise_simples.py** (Leve - sem dependências)
+- Versão simplificada sem bibliotecas
+- Roda em qualquer máquina Python
+- Gera relatório Markdown
+
+**dashboard.py** (Streamlit - Visual Interativo)
+- Dashboard web interativo
+- 5 visões: Geral, Top Clientes, Geográfica, Segmentação, Parceiros
+- Gráficos interativos (Plotly)
+- Filtros por UF e vendedor
+- Exportação de dados (CSV)
+
+---
+
+### 3. Novas Análises Criadas
+
+**06-analise-clientes-detalhada.md** (Gerado automaticamente)
+- Top 30 clientes
+- Concentração de risco por cliente
+- Top 15 UFs
+- Top 15 vendedores por número de clientes
+- Recomendações estratégicas
+
+**07-analise-dre-financeira.md** ⭐ MAIS IMPORTANTE
+- Análise de margem e rentabilidade
+- Política de desconto
+- Mix de produtos (curva ABC)
+- Análise por fabricante (Roche, Astra, Ipsen, etc.)
+- Análise por categoria de cliente
+- Análise por canal de venda
+- Gestão fiscal (ICMS)
+- **Impacto financeiro:** +R$ 15M-R$ 30M/ano potencial
+
+---
+
+### 4. Evolução: Gestão de Volume → Gestão de Rentabilidade
+
+**Antes (v2.0):** Sabíamos QUANTO vendemos
+**Agora (v2.1):** Sabemos quanto vendemos E QUANTO LUCRAMOS
+
+| Métrica | v2.0 | v2.1 |
+|---------|------|------|
+| Faturamento por vendedor | ✅ | ✅ |
+| Margem por vendedor | ❌ | ✅ NOVO |
+| Desconto por vendedor | ❌ | ✅ NOVO |
+| Faturamento por produto | ❌ | ✅ NOVO |
+| Faturamento por fabricante | ❌ | ✅ NOVO |
+| Faturamento por categoria cliente | ❌ | ✅ NOVO |
+| Faturamento por canal | ❌ | ✅ NOVO |
+| Taxa de desconto média | ❌ | ✅ NOVO |
+| Análise fiscal (ICMS) | ❌ | ✅ NOVO |
+| Análise de devoluções | ❌ | ✅ NOVO |
+
+**Total:** De 5 métricas → 15+ métricas acionáveis
 
 ---
 
