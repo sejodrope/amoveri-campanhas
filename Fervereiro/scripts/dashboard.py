@@ -46,7 +46,8 @@ def carregar_clientes():
     """Carrega dados de clientes"""
     file_path = DATABASE_DIR / "Resumo de vendas por cliente - 07.25-02.26.csv"
     # Skip first 6 rows (header information), row 7 has column names
-    df = pd.read_csv(file_path, encoding='latin-1', skiprows=6)
+    # Use UTF-8 encoding to be consistent with parceiros file
+    df = pd.read_csv(file_path, encoding='utf-8', skiprows=6)
     df.columns = df.columns.str.strip()
     df['Vendas_Float'] = df['Vendas'].apply(limpar_valor)
     df = df[df['Cliente'].notna()].copy()
@@ -60,9 +61,14 @@ def carregar_parceiros():
     """Carrega dados de parceiros"""
     file_path = DATABASE_DIR / "Resumo de vendas por parceiro - 10.25-02.26.csv"
     # Skip first 6 rows (header information), row 7 has column names
-    df = pd.read_csv(file_path, encoding='latin-1', skiprows=6)
+    # Use UTF-8 encoding to properly handle special characters
+    df = pd.read_csv(file_path, encoding='utf-8', skiprows=6)
     df.columns = df.columns.str.strip()
-    df['Vendas_Float'] = df['Total da transação'].apply(limpar_valor)
+
+    # Find the transaction column (may have encoding issues with 'ç')
+    # It's the second column (index 1)
+    col_vendas = df.columns[1]  # Should be 'Total da transação' or similar
+    df['Vendas_Float'] = df[col_vendas].apply(limpar_valor)
     return df
 
 
