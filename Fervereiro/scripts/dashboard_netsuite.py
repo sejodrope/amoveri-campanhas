@@ -1,9 +1,9 @@
 """
 Dashboard de Gestão Comercial - NetSuite DRE
-Pontual Farmacêutica
+Amoveri Farma
 
 Baseado exclusivamente nos dados do NetSuite (DRE Gerencial)
-Versão 3.0 - Ajustes conforme reunião com Nathália
+Versão 3.0 - Design Moderno e Elegante
 
 Autor: José Pedro Vieira Silva
 Data: 06/02/2026
@@ -18,11 +18,217 @@ from datetime import datetime
 
 # Configuração da página
 st.set_page_config(
-    page_title="Dashboard Comercial - Pontual",
-    page_icon="📊",
+    page_title="Dashboard Comercial - Amoveri Farma",
+    page_icon="💊",
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# CSS Customizado para design moderno
+st.markdown("""
+<style>
+    /* Importar fonte moderna */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    /* Aplicar fonte em todo o app */
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
+
+    /* Gradiente de fundo */
+    .main {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background-attachment: fixed;
+    }
+
+    /* Container principal com blur/glass effect */
+    .block-container {
+        padding: 2rem 3rem;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        margin: 1rem;
+    }
+
+    /* Sidebar moderna */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+        padding: 2rem 1rem;
+    }
+
+    [data-testid="stSidebar"] * {
+        color: white !important;
+    }
+
+    [data-testid="stSidebar"] .stSelectbox label,
+    [data-testid="stSidebar"] .stRadio label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Títulos modernos */
+    h1 {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    h2 {
+        color: #2d3748;
+        font-weight: 600;
+        font-size: 1.8rem;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    h3 {
+        color: #4a5568;
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin-top: 1.5rem;
+    }
+
+    /* Cards de métricas com estilo moderno */
+    [data-testid="stMetricValue"] {
+        font-size: 2rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    [data-testid="stMetricLabel"] {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #4a5568;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    /* Container de métricas */
+    div[data-testid="column"] > div {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+        border: 1px solid rgba(102, 126, 234, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    div[data-testid="column"] > div:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 20px rgba(102, 126, 234, 0.2);
+    }
+
+    /* Gráficos com bordas arredondadas */
+    .js-plotly-plot {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    }
+
+    /* Tabelas estilizadas */
+    [data-testid="stDataFrame"] {
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+    }
+
+    /* Botões modernos */
+    .stButton > button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 0.6rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(102, 126, 234, 0.3);
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    /* Selectbox e inputs modernos */
+    .stSelectbox > div > div,
+    .stTextInput > div > div {
+        border-radius: 10px;
+        border: 2px solid rgba(102, 126, 234, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    .stSelectbox > div > div:focus-within,
+    .stTextInput > div > div:focus-within {
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    /* Info boxes */
+    .stAlert {
+        border-radius: 10px;
+        border-left: 4px solid #667eea;
+        background: rgba(102, 126, 234, 0.05);
+    }
+
+    /* Separadores */
+    hr {
+        margin: 2rem 0;
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #667eea, transparent);
+    }
+
+    /* Animação de entrada suave */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .block-container > div {
+        animation: fadeIn 0.6s ease-out;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .block-container {
+            padding: 1rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+        }
+    }
+
+    /* Badge/Tag style */
+    .badge {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: 20px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin: 0.2rem;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # Diretórios
 BASE_DIR = Path(__file__).parent.parent
@@ -99,55 +305,92 @@ def carregar_dre_netsuite():
     return df
 
 
-# Header
-st.title("📊 Dashboard de Gestão Comercial v3.0")
-st.markdown("### Pontual Farmacêutica - Dados NetSuite DRE")
+# Header com logo e branding
+col1, col2 = st.columns([1, 4])
+with col1:
+    st.markdown("# 💊")
+with col2:
+    st.title("Dashboard de Gestão Comercial")
+    st.markdown("**Amoveri Farma** • v3.0 • NetSuite DRE")
+
 st.markdown("---")
 
 # Sidebar
 with st.sidebar:
-    st.markdown("## 📊 Pontual Farmacêutica")
-    st.markdown("**Fonte:** NetSuite DRE Gerencial")
+    # Logo/Branding
+    st.markdown("""
+    <div style='text-align: center; padding: 1rem 0; margin-bottom: 2rem;'>
+        <div style='font-size: 3rem; margin-bottom: 0.5rem;'>💊</div>
+        <h2 style='margin: 0; font-size: 1.5rem; font-weight: 700;'>Amoveri Farma</h2>
+        <p style='margin: 0.5rem 0 0 0; font-size: 0.8rem; opacity: 0.8;'>Dashboard Comercial</p>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown("---")
-    st.markdown("## 🎛️ Filtros")
 
     # Carregar dados
-    with st.spinner("Carregando dados do NetSuite..."):
+    with st.spinner("🔄 Carregando dados..."):
         df = carregar_dre_netsuite()
 
-    # Filtros
-    st.markdown("### 📅 Período")
-    st.info("Jul/2025 - Fev/2026")
-
-    st.markdown("### 📆 Filtro por Trimestre")
-    trimestres = ['Todos'] + sorted(df['Trimestre'].unique().tolist())
-    trimestre_selecionado = st.selectbox("Selecione Trimestre:", trimestres)
-
-    st.markdown("### 🗺️ Filtro por UF")
-    ufs_disponiveis = ['Todas'] + sorted(df['UF'].unique().tolist())
-    uf_selecionada = st.selectbox("Selecione UF:", ufs_disponiveis)
-
-    st.markdown("### 👤 Filtro por Parceiro (Rep. Vendas)")
-    parceiros = ['Todos'] + sorted(df['Parceiro'].unique().tolist())
-    parceiro_selecionado = st.selectbox("Selecione Parceiro:", parceiros)
-
-    st.markdown("### 📺 Filtro por Canal")
-    canais = ['Todos'] + sorted(df['Canal'].unique().tolist())
-    canal_selecionado = st.selectbox("Selecione Canal:", canais)
+    # Período
+    st.markdown("**📅 Período de Análise**")
+    st.success("Jul/2025 - Fev/2026")
 
     st.markdown("---")
-    st.markdown("### 📊 Visões Disponíveis")
+
+    # Filtros em expander
+    with st.expander("🎛️ **Filtros Avançados**", expanded=True):
+        st.markdown("**📆 Trimestre**")
+        trimestres = ['Todos'] + sorted(df['Trimestre'].unique().tolist())
+        trimestre_selecionado = st.selectbox(
+            "Trimestre:",
+            trimestres,
+            label_visibility="collapsed"
+        )
+
+        st.markdown("**🗺️ Estado**")
+        ufs_disponiveis = ['Todas'] + sorted(df['UF'].unique().tolist())
+        uf_selecionada = st.selectbox(
+            "UF:",
+            ufs_disponiveis,
+            label_visibility="collapsed"
+        )
+
+        st.markdown("**👤 Parceiro**")
+        parceiros = ['Todos'] + sorted(df['Parceiro'].unique().tolist())
+        parceiro_selecionado = st.selectbox(
+            "Parceiro:",
+            parceiros,
+            label_visibility="collapsed"
+        )
+
+        st.markdown("**📺 Canal**")
+        canais = ['Todos'] + sorted(df['Canal'].unique().tolist())
+        canal_selecionado = st.selectbox(
+            "Canal:",
+            canais,
+            label_visibility="collapsed"
+        )
+
+    st.markdown("---")
+
+    # Visões com ícones
+    st.markdown("**📊 Visões Disponíveis**")
     visao = st.radio(
-        "Escolha:",
+        "Visões:",
         [
-            "Visão Geral",
-            "Análise por Grupo",
-            "Análise por Trimestre",
-            "Análise por Canal",
-            "Análise por Parceiro",
-            "Top Produtos"
-        ]
+            "📈 Visão Geral",
+            "🏢 Análise por Grupo",
+            "📆 Análise por Trimestre",
+            "📺 Análise por Canal",
+            "🤝 Análise por Parceiro",
+            "🏆 Top Produtos"
+        ],
+        label_visibility="collapsed"
     )
+
+    # Remover emoji para comparação
+    visao = visao.split(" ", 1)[1] if " " in visao else visao
 
 # Aplicar filtros
 df_filtrado = df.copy()
@@ -637,6 +880,23 @@ elif visao == "Top Produtos":
         st.metric("🎯 Concentração Top 5", f"{top5_fab:.1f}%")
 
 
-# Footer
+# Footer elegante
 st.markdown("---")
-st.markdown("**Dashboard v3.0** | Pontual Farmacêutica | Fonte: NetSuite DRE Gerencial | Gerado em: " + datetime.now().strftime("%d/%m/%Y %H:%M"))
+st.markdown(f"""
+<div style='text-align: center; padding: 2rem 0; margin-top: 3rem;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+            border-radius: 15px;'>
+    <p style='margin: 0; color: #667eea; font-weight: 600; font-size: 1.1rem;'>
+        💊 Amoveri Farma
+    </p>
+    <p style='margin: 0.5rem 0; color: #4a5568; font-size: 0.9rem;'>
+        Dashboard Comercial v3.0 • NetSuite DRE
+    </p>
+    <p style='margin: 0.5rem 0; color: #718096; font-size: 0.8rem;'>
+        Última atualização: {datetime.now().strftime("%d/%m/%Y às %H:%M")}
+    </p>
+    <p style='margin: 1rem 0 0 0; color: #a0aec0; font-size: 0.75rem;'>
+        Desenvolvido com ❤️ por José Pedro Vieira Silva
+    </p>
+</div>
+""", unsafe_allow_html=True)
