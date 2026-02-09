@@ -228,15 +228,12 @@ st.markdown("---")
 # SIDEBAR
 # ========================
 with st.sidebar:
-    if LOGO_PATH.exists():
-        logo_data = base64.b64encode(LOGO_PATH.read_bytes()).decode()
-        st.markdown(
-            f"<div style='text-align:center; padding: 1rem 0;'>"
-            f"<img src='data:image/png;base64,{logo_data}' width='180'/>"
-            f"</div>",
-            unsafe_allow_html=True
-        )
-    else:
+    try:
+        from PIL import Image
+        logo_img = Image.open(LOGO_PATH)
+        logo_img = logo_img.resize((400, int(400 * logo_img.height / logo_img.width)))
+        st.image(logo_img, use_container_width=True)
+    except Exception:
         st.markdown("### Amoveri Farma")
     st.caption("Dashboard Comercial")
 
