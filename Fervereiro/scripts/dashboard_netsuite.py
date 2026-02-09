@@ -22,7 +22,7 @@ from io import BytesIO
 # Configuração da página
 st.set_page_config(
     page_title="Dashboard Comercial - Amoveri Farma",
-    page_icon="💊",
+    page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -101,6 +101,7 @@ COORDS_UF = {
 # Diretórios
 BASE_DIR = Path(__file__).parent.parent
 DATABASE_DIR = BASE_DIR / "database" / "campanhas"
+LOGO_PATH = BASE_DIR / "LOGO AMOVERI FARMA.png"
 
 
 def limpar_valor(valor_str):
@@ -220,20 +221,17 @@ def carregar_dre_netsuite():
 # HEADER
 # ========================
 st.title("Dashboard de Gestão Comercial")
-st.markdown("**Amoveri Farma** · v5.0 · NetSuite DRE")
 st.markdown("---")
 
 # ========================
 # SIDEBAR
 # ========================
 with st.sidebar:
-    st.markdown("""
-    <div style='text-align: center; padding: 0.8rem 0 1.5rem 0;'>
-        <div style='font-size: 2.5rem; margin-bottom: 0.3rem;'>💊</div>
-        <h2 style='margin: 0; font-size: 1.3rem; font-weight: 700;'>Amoveri Farma</h2>
-        <p style='margin: 0.3rem 0 0 0; font-size: 0.75rem; opacity: 0.7;'>Dashboard Comercial</p>
-    </div>
-    """, unsafe_allow_html=True)
+    if LOGO_PATH.exists():
+        st.image(str(LOGO_PATH), width=200)
+    else:
+        st.markdown("### Amoveri Farma")
+    st.caption("Dashboard Comercial")
 
     st.markdown("---")
 
@@ -1236,8 +1234,8 @@ st.markdown(f"""
 <div style='text-align: center; padding: 1.5rem 0;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.04) 0%, rgba(118, 75, 162, 0.04) 100%);
             border-radius: 12px;'>
-    <p style='margin: 0; color: #667eea; font-weight: 600; font-size: 1rem;'>💊 Amoveri Farma</p>
-    <p style='margin: 0.3rem 0; color: #4a5568; font-size: 0.85rem;'>Dashboard Comercial v5.0 · NetSuite DRE</p>
+    <p style='margin: 0; color: #667eea; font-weight: 600; font-size: 1rem;'>Amoveri Farma</p>
+    <p style='margin: 0.3rem 0; color: #4a5568; font-size: 0.85rem;'>Dashboard Comercial</p>
     <p style='margin: 0.3rem 0; color: #718096; font-size: 0.75rem;'>Atualizado: {datetime.now().strftime("%d/%m/%Y às %H:%M")}</p>
     <p style='margin: 0.5rem 0 0 0; color: #a0aec0; font-size: 0.7rem;'>Desenvolvido por José Pedro Vieira Silva</p>
 </div>
