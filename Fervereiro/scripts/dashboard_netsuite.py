@@ -18,6 +18,7 @@ import numpy as np
 from pathlib import Path
 from datetime import datetime
 from io import BytesIO
+import base64
 
 # Configuração da página
 st.set_page_config(
@@ -228,7 +229,13 @@ st.markdown("---")
 # ========================
 with st.sidebar:
     if LOGO_PATH.exists():
-        st.image(str(LOGO_PATH), width=200)
+        logo_data = base64.b64encode(LOGO_PATH.read_bytes()).decode()
+        st.markdown(
+            f"<div style='text-align:center; padding: 1rem 0;'>"
+            f"<img src='data:image/png;base64,{logo_data}' width='180'/>"
+            f"</div>",
+            unsafe_allow_html=True
+        )
     else:
         st.markdown("### Amoveri Farma")
     st.caption("Dashboard Comercial")
