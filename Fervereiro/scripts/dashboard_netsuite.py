@@ -42,7 +42,13 @@ st.markdown("""
         background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
         padding: 1rem 0.8rem;
     }
-    [data-testid="stSidebar"] * { color: white !important; }
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] .stMarkdown,
+    [data-testid="stSidebar"] .stMarkdown *,
+    [data-testid="stSidebar"] .stCaption,
+    [data-testid="stSidebar"] .stCaption *,
+    [data-testid="stSidebar"] [data-testid="stRadio"] *,
+    [data-testid="stSidebar"] hr { color: white !important; }
     [data-testid="stSidebar"] [data-testid="stImage"] {
         display: flex; justify-content: center; padding: 0.5rem 0;
     }
