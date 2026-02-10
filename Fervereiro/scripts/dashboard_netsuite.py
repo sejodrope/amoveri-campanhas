@@ -7,7 +7,7 @@ Versão 5.0 - Completo com Análise ABC, Mapa, Evolução Mensal,
              Performance de Vendedores, Contratos e Export
 
 Autor: José Pedro Vieira Silva
-Data: 09/02/2026
+Data: 10/02/2026
 """
 
 import streamlit as st
@@ -33,55 +33,60 @@ st.markdown("""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
     html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
-    .main {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        background-attachment: fixed;
-    }
+    .main { background: #f0f2f6; }
     .block-container {
         padding: 1.5rem 2rem;
-        background: rgba(255, 255, 255, 0.97);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.2);
-        margin: 0.5rem;
+        max-width: 1400px;
     }
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
-        padding: 1.5rem 1rem;
+        padding: 1rem 0.8rem;
     }
     [data-testid="stSidebar"] * { color: white !important; }
+    [data-testid="stSidebar"] [data-testid="stImage"] {
+        display: flex; justify-content: center; padding: 0.5rem 0;
+    }
     h1 {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-weight: 700; font-size: 2.2rem; margin-bottom: 0.3rem;
+        font-weight: 700; font-size: 2rem; margin-bottom: 0.2rem;
     }
-    h2 { color: #2d3748; font-weight: 600; font-size: 1.6rem; margin-top: 1.5rem; margin-bottom: 0.8rem; }
-    h3 { color: #4a5568; font-weight: 600; font-size: 1.2rem; margin-top: 1rem; }
+    h2 { color: #2d3748; font-weight: 600; font-size: 1.5rem; margin-top: 1.2rem; margin-bottom: 0.6rem; }
+    h3 { color: #4a5568; font-weight: 600; font-size: 1.1rem; margin-top: 0.8rem; }
     [data-testid="stMetricValue"] {
-        font-size: 1.8rem; font-weight: 700;
+        font-size: 1.6rem; font-weight: 700;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     }
     [data-testid="stMetricLabel"] {
-        font-size: 0.85rem; font-weight: 600; color: #4a5568;
+        font-size: 0.8rem; font-weight: 600; color: #4a5568;
         text-transform: uppercase; letter-spacing: 0.5px;
     }
     div[data-testid="column"] > div {
-        background: white; padding: 1rem; border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-        border: 1px solid rgba(102, 126, 234, 0.08);
+        background: white; padding: 0.8rem; border-radius: 10px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+        border: 1px solid #e2e8f0;
     }
-    .js-plotly-plot { border-radius: 12px; overflow: hidden; }
-    [data-testid="stDataFrame"] { border-radius: 12px; overflow: hidden; }
-    hr { margin: 1.5rem 0; border: none; height: 2px;
-         background: linear-gradient(90deg, transparent, #667eea, transparent); }
-    .stAlert { border-radius: 10px; border-left: 4px solid #667eea; }
-    .stTabs [data-baseweb="tab-list"] { gap: 8px; }
-    .stTabs [data-baseweb="tab"] { border-radius: 8px 8px 0 0; padding: 8px 20px; font-weight: 600; }
+    .js-plotly-plot { border-radius: 10px; overflow: hidden; }
+    [data-testid="stDataFrame"] { border-radius: 10px; overflow: hidden; }
+    hr { margin: 1.2rem 0; border: none; height: 1px; background: #e2e8f0; }
+    .stAlert { border-radius: 8px; border-left: 4px solid #667eea; }
+    .stTabs [data-baseweb="tab-list"] { gap: 6px; }
+    .stTabs [data-baseweb="tab"] {
+        border-radius: 8px 8px 0 0; padding: 8px 16px;
+        font-weight: 600; font-size: 0.9rem;
+    }
+    [data-testid="stDownloadButton"] button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white; border: none; border-radius: 8px;
+        font-weight: 600; font-size: 0.85rem;
+    }
+    [data-testid="stDownloadButton"] button:hover { opacity: 0.9; }
     @media (max-width: 768px) {
-        .block-container { padding: 0.8rem; }
-        h1 { font-size: 1.6rem; } h2 { font-size: 1.3rem; }
+        .block-container { padding: 0.5rem; }
+        h1 { font-size: 1.4rem; } h2 { font-size: 1.2rem; }
+        [data-testid="stMetricValue"] { font-size: 1.2rem; }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -145,17 +150,29 @@ def gerar_csv_download(df, nome_arquivo):
     """Gera botão de download CSV"""
     csv = df.to_csv(index=False, sep=';', decimal=',').encode('utf-8-sig')
     st.download_button(
-        label="📥 Baixar dados (CSV)",
+        label="Baixar dados (CSV)",
         data=csv,
         file_name=nome_arquivo,
         mime='text/csv'
     )
 
 
+# Layout padrão para gráficos Plotly
+PLOTLY_LAYOUT = dict(
+    font=dict(family="Inter, sans-serif"),
+    plot_bgcolor="white",
+    paper_bgcolor="white",
+    margin=dict(l=20, r=20, t=40, b=20),
+    xaxis=dict(gridcolor="#f0f0f0", zerolinecolor="#e0e0e0"),
+    yaxis=dict(gridcolor="#f0f0f0", zerolinecolor="#e0e0e0"),
+    legend=dict(font=dict(size=11)),
+)
+
+
 @st.cache_data
 def carregar_dre_netsuite():
     """Carrega dados do DRE NetSuite"""
-    file_path = DATABASE_DIR / "CTR- BASE VENDAS DRE GERENCIAL - 10.25-09.02.26.csv"
+    file_path = DATABASE_DIR / "CTR- BASE VENDAS DRE GERENCIAL - 10.25-10.02.26.csv"
 
     df = pd.read_csv(file_path, encoding='latin-1', skiprows=6)
     df.columns = df.columns.str.strip()
@@ -242,7 +259,12 @@ with st.sidebar:
     with st.spinner("Carregando dados..."):
         df = carregar_dre_netsuite()
 
-    st.markdown("**Período:** Out/2025 - Fev/2026")
+    meses_pt_sidebar = {1:'Jan',2:'Fev',3:'Mar',4:'Abr',5:'Mai',6:'Jun',7:'Jul',8:'Ago',9:'Set',10:'Out',11:'Nov',12:'Dez'}
+    data_min = df['Data_DT'].min()
+    data_max = df['Data_DT'].max()
+    periodo_inicio = f"{meses_pt_sidebar[data_min.month]}/{data_min.year}"
+    periodo_fim = f"{meses_pt_sidebar[data_max.month]}/{data_max.year}"
+    st.markdown(f"**Período:** {periodo_inicio} - {periodo_fim}")
     st.caption(f"{len(df):,} registros carregados")
 
     st.markdown("---")
@@ -368,7 +390,7 @@ if visao == "Visão Geral":
             line=dict(color='#667eea', width=3),
             marker=dict(size=10, color='#667eea')
         ))
-        fig.update_layout(height=400, showlegend=False,
+        fig.update_layout(**PLOTLY_LAYOUT, height=400, showlegend=False,
                           yaxis_title="Faturamento (R$)", xaxis_title="")
         st.plotly_chart(fig, use_container_width=True)
 
@@ -445,7 +467,7 @@ elif visao == "Evolução Mensal":
             x=mensal['Mes_Label'], y=mensal['Fat_Liquido'],
             name='Líquido', marker_color='#667eea'
         ))
-        fig.update_layout(barmode='group', height=400,
+        fig.update_layout(**PLOTLY_LAYOUT, barmode='group', height=400,
                           legend=dict(orientation="h", yanchor="bottom", y=1.02))
         st.plotly_chart(fig, use_container_width=True)
 
@@ -460,7 +482,7 @@ elif visao == "Evolução Mensal":
             text=[f"{v:+.1f}%" for v in var_data['Variacao']],
             textposition='outside'
         ))
-        fig.update_layout(height=400, yaxis_title="Variação (%)")
+        fig.update_layout(**PLOTLY_LAYOUT, height=400, yaxis_title="Variação (%)")
         st.plotly_chart(fig, use_container_width=True)
 
     col3, col4 = st.columns(2)
