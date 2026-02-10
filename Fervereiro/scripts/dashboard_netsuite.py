@@ -159,13 +159,12 @@ def gerar_csv_download(df, nome_arquivo):
 
 # Layout padrão para gráficos Plotly
 PLOTLY_LAYOUT = dict(
-    font=dict(family="Inter, sans-serif"),
+    font=dict(family="Inter, sans-serif", color="#2d3748"),
     plot_bgcolor="white",
     paper_bgcolor="white",
     margin=dict(l=20, r=20, t=40, b=20),
-    xaxis=dict(gridcolor="#f0f0f0", zerolinecolor="#e0e0e0"),
-    yaxis=dict(gridcolor="#f0f0f0", zerolinecolor="#e0e0e0"),
-    legend=dict(font=dict(size=11)),
+    xaxis=dict(gridcolor="#f0f0f0", zerolinecolor="#e0e0e0", tickfont=dict(color="#2d3748")),
+    yaxis=dict(gridcolor="#f0f0f0", zerolinecolor="#e0e0e0", tickfont=dict(color="#2d3748")),
 )
 
 
@@ -270,17 +269,17 @@ with st.sidebar:
     st.markdown("---")
 
     # Filtros
-    trimestres = sorted(df['Trimestre'].unique().tolist())
-    trimestre_selecionado = st.selectbox("Trimestre", trimestres, index=None, placeholder="Todos os trimestres")
+    trimestres = ['Todos'] + sorted(df['Trimestre'].unique().tolist())
+    trimestre_selecionado = st.selectbox("Trimestre", trimestres, index=0)
 
-    ufs_disponiveis = sorted(df['UF'].unique().tolist())
-    uf_selecionada = st.selectbox("Estado (UF)", ufs_disponiveis, index=None, placeholder="Todos os estados")
+    ufs_disponiveis = ['Todos'] + sorted(df['UF'].unique().tolist())
+    uf_selecionada = st.selectbox("Estado (UF)", ufs_disponiveis, index=0)
 
-    parceiros = sorted(df['Parceiro'].unique().tolist())
-    parceiro_selecionado = st.selectbox("Parceiro", parceiros, index=None, placeholder="Todos os parceiros")
+    parceiros = ['Todos'] + sorted(df['Parceiro'].unique().tolist())
+    parceiro_selecionado = st.selectbox("Parceiro", parceiros, index=0)
 
-    canais = sorted(df['Canal'].unique().tolist())
-    canal_selecionado = st.selectbox("Canal de Venda", canais, index=None, placeholder="Todos os canais")
+    canais = ['Todos'] + sorted(df['Canal'].unique().tolist())
+    canal_selecionado = st.selectbox("Canal de Venda", canais, index=0)
 
     st.markdown("---")
 
@@ -304,13 +303,13 @@ with st.sidebar:
 
 # Aplicar filtros
 df_filtrado = df.copy()
-if trimestre_selecionado is not None:
+if trimestre_selecionado != 'Todos':
     df_filtrado = df_filtrado[df_filtrado['Trimestre'] == trimestre_selecionado]
-if uf_selecionada is not None:
+if uf_selecionada != 'Todos':
     df_filtrado = df_filtrado[df_filtrado['UF'] == uf_selecionada]
-if parceiro_selecionado is not None:
+if parceiro_selecionado != 'Todos':
     df_filtrado = df_filtrado[df_filtrado['Parceiro'] == parceiro_selecionado]
-if canal_selecionado is not None:
+if canal_selecionado != 'Todos':
     df_filtrado = df_filtrado[df_filtrado['Canal'] == canal_selecionado]
 
 if len(df_filtrado) < len(df):
