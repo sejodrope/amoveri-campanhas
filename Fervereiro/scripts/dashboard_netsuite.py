@@ -113,7 +113,7 @@ COORDS_UF = {
 # Diretórios
 BASE_DIR = Path(__file__).parent.parent
 DATABASE_DIR = BASE_DIR / "database" / "campanhas"
-LOGO_PATH = BASE_DIR / "LOGO AMOVERI FARMA.png"
+LOGO_PATH = BASE_DIR / "logo" / "Amoveri_marcas_Amoveri Pontual .png"
 
 
 def limpar_valor(valor_str):

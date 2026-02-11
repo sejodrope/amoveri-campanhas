@@ -4,10 +4,32 @@ Base: CTR-DRE Gerencial NetSuite | Abr/2024 - Fev/2026 | 38.443 transacoes
 
 ---
 
+## INSTRUCOES PARA O GEMINI
+
+Voce e um designer de apresentacoes institucionais corporativas. Crie uma apresentacao profissional
+em Google Slides com base nos dados abaixo. Use um design moderno, limpo e corporativo.
+
+### Arquivos de logo disponíveis (compartilhados junto com este prompt):
+1. **Amoveri_marcas_Amoveri Pontual .png** - Logo principal (usar na capa e slides principais)
+2. **Amoveri_marcas_Amoveri Pontual Horizontal Negativo.png** - Versao horizontal negativa (fundo escuro)
+3. **Amoveri_marcas_Amoveri Pontual_horizontal.png** - Versao horizontal (usar no rodape dos slides)
+4. **Amoveri_marcas_Amoveri Pontual_Negativo.png** - Versao negativa (para fundos escuros/coloridos)
+
+### Diretrizes de design:
+- Cores primarias: roxo (#6B2FA0) e azul (#2E86DE) conforme identidade visual da Amoveri
+- Fonte moderna e limpa (Montserrat, Inter ou similar)
+- Logo principal na capa (centralizada), logo horizontal no rodape dos demais slides
+- Graficos e tabelas com visual limpo, cores consistentes
+- Cada slide deve ter titulo claro e dados organizados visualmente
+- Use icones e elementos visuais para tornar os dados mais atrativos
+- Para slides com muitos dados, priorize graficos em vez de tabelas
+
+---
+
 ## SLIDE 1 - CAPA
 - Amoveri Pontual Farmaceutica
 - Apresentacao Institucional 2026
-- (usar logo oficial)
+- Usar logo: **Amoveri_marcas_Amoveri Pontual .png** (centralizada)
 
 ---
 
@@ -295,11 +317,16 @@ PROJECAO 2026: +R$ 1 BILHAO
 
 ---
 
+## LOGOS DISPONIVEIS (compartilhar junto com este prompt):
+- Amoveri_marcas_Amoveri Pontual .png (logo principal)
+- Amoveri_marcas_Amoveri Pontual Horizontal Negativo.png (horizontal fundo escuro)
+- Amoveri_marcas_Amoveri Pontual_horizontal.png (horizontal padrao)
+- Amoveri_marcas_Amoveri Pontual_Negativo.png (fundo escuro)
+
 ## DADOS QUE FALTAM (solicitar a Nathalia):
 1. Numero de pessoas internas (equipe)
 2. Dados de governanca (nomes dos Gerentes de Parcerias)
-3. Logos dos laboratorios e portais
+3. Logos dos laboratorios e portais parceiros
 4. Informacoes sobre modelo de atuacao consultivo
 5. Detalhes das contas estrategicas
 6. Fotos/imagens dos CDs
-7. Identidade visual oficial para os slides
