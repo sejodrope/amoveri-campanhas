@@ -1,6 +1,6 @@
 """
 Dashboard de Gestão Comercial - NetSuite DRE
-Amoveri Farma
+Amoveri Pontual
 
 Baseado nos dados do NetSuite (DRE Gerencial)
 Versão 5.0 - Completo com Análise ABC, Mapa, Evolução Mensal,
@@ -22,7 +22,7 @@ import base64
 
 # Configuração da página
 st.set_page_config(
-    page_title="Dashboard Comercial - Amoveri Farma",
+    page_title="Dashboard Comercial - Amoveri Pontual",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -256,7 +256,7 @@ with st.sidebar:
         logo_img = logo_img.resize((400, int(400 * logo_img.height / logo_img.width)))
         st.image(logo_img, use_container_width=True)
     except Exception:
-        st.markdown("### Amoveri Farma")
+        st.markdown("### Amoveri Pontual")
     st.caption("Dashboard Comercial")
 
     st.markdown("---")
@@ -1265,7 +1265,7 @@ st.markdown(f"""
 <div style='text-align: center; padding: 1.5rem 0;
             background: linear-gradient(135deg, rgba(102, 126, 234, 0.04) 0%, rgba(118, 75, 162, 0.04) 100%);
             border-radius: 12px;'>
-    <p style='margin: 0; color: #667eea; font-weight: 600; font-size: 1rem;'>Amoveri Farma</p>
+    <p style='margin: 0; color: #667eea; font-weight: 600; font-size: 1rem;'>Amoveri Pontual</p>
     <p style='margin: 0.3rem 0; color: #4a5568; font-size: 0.85rem;'>Dashboard Comercial</p>
     <p style='margin: 0.3rem 0; color: #718096; font-size: 0.75rem;'>Atualizado: {datetime.now().strftime("%d/%m/%Y às %H:%M")}</p>
     <p style='margin: 0.5rem 0 0 0; color: #a0aec0; font-size: 0.7rem;'>Desenvolvido por José Pedro Vieira Silva</p>
