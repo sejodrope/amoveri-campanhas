@@ -177,7 +177,7 @@ PLOTLY_LAYOUT = dict(
 @st.cache_data
 def carregar_dre_netsuite():
     """Carrega dados do DRE NetSuite"""
-    file_path = DATABASE_DIR / "CTR- BASE VENDAS DRE GERENCIAL - 10.25-10.02.26.csv"
+    file_path = DATABASE_DIR / "CTR- BASE VENDAS DRE GERENCIAL - 04.24-11.02.26.csv"
 
     df = pd.read_csv(file_path, encoding='latin-1', skiprows=6)
     df.columns = df.columns.str.strip()
