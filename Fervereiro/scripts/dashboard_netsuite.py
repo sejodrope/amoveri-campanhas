@@ -113,7 +113,7 @@ COORDS_UF = {
 # Diretórios
 BASE_DIR = Path(__file__).parent.parent
 DATABASE_DIR = BASE_DIR / "database" / "campanhas"
-LOGO_PATH = BASE_DIR / "logo" / "Amoveri_marcas_Amoveri Pontual .png"
+LOGO_PATH = BASE_DIR / "logo" / "Amoveri Pontual" / "Amoveri_marcas_Amoveri Pontual .png"
 
 
 def limpar_valor(valor_str):
@@ -177,7 +177,7 @@ PLOTLY_LAYOUT = dict(
 @st.cache_data
 def carregar_dre_netsuite():
     """Carrega dados do DRE NetSuite"""
-    file_path = DATABASE_DIR / "CTR- BASE VENDAS DRE GERENCIAL - 04.24-11.02.26.csv"
+    file_path = DATABASE_DIR / "CTR- BASE VENDAS DRE GERENCIAL - 01.24-12.02.26.csv"
 
     df = pd.read_csv(file_path, encoding='latin-1', skiprows=6)
     df.columns = df.columns.str.strip()
